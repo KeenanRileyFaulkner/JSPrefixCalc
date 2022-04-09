@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>Calculator | Devmountain Foundations</title>
+
+      <link
+        href="_static/pygments.css"
+        rel="stylesheet"
+        type="text/css"
+      />
+      <link href="_static/devmountain.css" rel="stylesheet" type="text/css" />
+          <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+          <link rel="stylesheet" type="text/css" href="_static/devmountain.css" />
+          <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
+          <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+
+      <script src="_static/pdfobject.min.js"></script>
+      
+  </head>
+  <body>
+      <div id="handouts-container">
+        <header id="page-header">
+            <p id="project-title">Devmountain Foundations</p>
+            <p id="page-title">Calculator</p>
+              <p id="backlink">
+                <a href="/"> &laquo; Back to Homepage </a>
+              </p>
+        </header>
+
+        <nav id="page-toc"><ul>
+<li><a class="reference internal" href="#">Calculator</a><ul>
+<li><a class="reference internal" href="#setup">Setup</a></li>
+<li><a class="reference internal" href="#introduction">Introduction</a><ul>
+<li><a class="reference internal" href="#calculators-and-notation">Calculators and Notation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#your-task">Your Task</a><ul>
+<li><a class="reference internal" href="#next-handling-addition">Next: Handling Addition</a></li>
+<li><a class="reference internal" href="#build-out-the-calculator">Build Out the Calculator</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+
+        <main id="page-content">
+            <section class="section" id="calculator">
+<h1>Calculator</h1>
+<section class="section" id="setup">
+<h2>Setup</h2>
+<p>This exercise will have you implementing a prefix calculator CLI application (an application that runs in the terminal).
+The calculator lets a user do things like add, subtract, multiply, and divide
+numbers.</p>
+<div class="admonition note">
+<p class="admonition-title">“CLI” vs “Console” vs “Terminal”</p>
+<div class="admonition-body docutils container">
+<p>Although there are technically subtle differences among the terms “CLI”, “console”, and “terminal”, you will often hear all of them referring to the same thing - a way that you can interact with your computer using text prompts.</p>
+</div>
+</div>
+<p>Download the materials for this exercise by clicking the Download link on Frodo.</p>
+<p>Once the materials have finished downloading, open your command line environment
+and <cite>cd</cite> into the project directory.</p>
+<p>Then, initialize a Git repo, <cite>git add</cite> all relevant files, and make an initial
+commit:</p>
+<pre class="console literal-block">$ <span class="cmd">git init</span>
+$ <span class="cmd">git add .</span>
+$ <span class="cmd">git commit -am &quot;Initial commit&quot;</span></pre>
+<div class="admonition note">
+<p class="admonition-title">The Importance of Git</p>
+<div class="admonition-body docutils container">
+<p>You will want to get into the habit of running the three commands above every time you begin an exercise or project.</p>
+<p>By creating a <em>local</em> git repository and adding unique commits as you make progress on your project, you are doing two things:</p>
+<ol class="arabic simple">
+<li><p>You are creating a <em>local</em> history of your project. Think of a commit as a “checkpoint” in a video game. If you mess something up, you can go back to a recent commit and start again at that point.</p></li>
+<li><p>You are creating a <em>local</em> git repository that can be saved to a <em>remote</em> repository stored on GitHub (we will cover this concept more later). Pushing your <em>local</em> git repository to a <em>remote</em> GitHub repository allows you to save your project in more than one place. Not only does this make it easy to share your code with the world, it also allows you to rest easy if (and when) your computer crashes, you accidentally delete your project on your computer, or some other catastrophic event occurs. Breathe easy - your files can all be backed up to GitHub.</p></li>
+</ol>
+</div>
+</div>
+</section>
+<section class="section" id="introduction">
+<h2>Introduction</h2>
+<section class="section" id="calculators-and-notation">
+<h3>Calculators and Notation</h3>
+<p>We typically write math equations using <cite>infix notation</cite> like this —
+<code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">+</span> <span class="pre">2</span></code> — where the operator (in this case, the plus sign) goes <em>inside</em>
+the numbers.</p>
+<p>Another way to write equations is with <cite>prefix notation</cite>. As the name implies,
+in prefix notation, operators go <em>before</em> the operands so, instead of
+<code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">+</span> <span class="pre">2</span></code>, you’d write <code class="docutils literal notranslate"><span class="pre">+</span> <span class="pre">3</span> <span class="pre">2</span></code>.</p>
+<p>One advantage of prefix notation is the ability to have an arbitrary number of
+operands. For example, <code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">+</span> <span class="pre">3</span> <span class="pre">+</span> <span class="pre">2</span></code> in prefix notation is
+<code class="docutils literal notranslate"><span class="pre">+</span> <span class="pre">4</span> <span class="pre">3</span> <span class="pre">2</span></code>.</p>
+<p>In this exercise, we will build a basic prefix calculator together. We
+will provide half of the program, and you will code the other half. We will only
+handle 2 operands for the calculator in this exercise.</p>
+</section>
+</section>
+<section class="section" id="your-task">
+<h2>Your Task</h2>
+<p>Implement a prefix notation calculator in the file called <cite>calc.js</cite>. You need
+to handle the following mathematical operations:</p>
+<ul class="simple">
+<li><p>Addition</p></li>
+<li><p>Subtraction</p></li>
+<li><p>Multiplication</p></li>
+<li><p>Division</p></li>
+<li><p>Square root</p></li>
+</ul>
+<p>We’ve provided some code that allows you to access the numbers and the math symbol
+that the user provided on the command line. Review the code carefully in
+<cite>calc.js</cite>. Research any syntax that looks unfamiliar to you.</p>
+<p>In order to see what the code is doing, add a <cite>console.log</cite> statement that prints
+out each variable in your calculator function. It’s helpful to add a “label” in
+your console.log, with the variable’s name, like so:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;mathSymbol&#39;</span><span class="p">,</span> <span class="nx">mathSymbol</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Click below if you need help.</p>
+<div class="admonition hint">
+<p class="admonition-title">Printing Variables Out</p>
+<details class="admonition-body"><summary></summary><div class="admonition-body docutils container">
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">reader</span><span class="p">.</span><span class="nx">question</span><span class="p">(</span><span class="s2">&quot;What would you like to calculate?&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">input</span><span class="p">){</span>
+            <span class="nx">tokens</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">);</span>
+
+            <span class="nx">mathSymbol</span> <span class="o">=</span> <span class="nx">tokens</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span>
+            <span class="nx">num1</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">tokens</span><span class="p">[</span><span class="mf">1</span><span class="p">]);</span>
+            <span class="nx">num2</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">tokens</span><span class="p">[</span><span class="mf">2</span><span class="p">]);</span>
+
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;mathSymbol&#39;</span><span class="p">,</span> <span class="nx">mathSymbol</span><span class="p">);</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;num1&#39;</span><span class="p">,</span> <span class="nx">num1</span><span class="p">);</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;num2&#39;</span><span class="p">,</span> <span class="nx">num2</span><span class="p">);</span>
+
+            <span class="nx">reader</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
+
+    <span class="p">});</span>
+</pre></div>
+</div>
+</div>
+</details></div>
+<p>Now, run the file to see your output. <strong>You need to be in the same directory
+as the `calc.js` file in order to run the command below.</strong></p>
+<pre class="console literal-block">$ <span class="cmd">node calc.js</span></pre>
+<section class="section" id="next-handling-addition">
+<h3>Next: Handling Addition</h3>
+<p>Below your <cite>console.log</cite> statements, write an if-statement that checks to see if
+the <cite>mathSymbol</cite> variable is equal to the string <code class="docutils literal notranslate"><span class="pre">&quot;+&quot;</span></code>.</p>
+<p>Click below if you need help.</p>
+<div class="admonition hint">
+<p class="admonition-title">Checking for Addition Symbol</p>
+<details class="admonition-body"><summary></summary><div class="admonition-body docutils container">
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">reader</span><span class="p">.</span><span class="nx">question</span><span class="p">(</span><span class="s2">&quot;What would you like to calculate?&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">input</span><span class="p">){</span>
+      <span class="nx">tokens</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">);</span>
+
+  <span class="nx">mathSymbol</span> <span class="o">=</span> <span class="nx">tokens</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span>
+      <span class="nx">num1</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">tokens</span><span class="p">[</span><span class="mf">1</span><span class="p">]);</span>
+      <span class="nx">num2</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">tokens</span><span class="p">[</span><span class="mf">2</span><span class="p">]);</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="nx">mathSymbol</span> <span class="o">===</span> <span class="s2">&quot;+&quot;</span><span class="p">){</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="nx">reader</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
+
+    <span class="p">});</span>
+</pre></div>
+</div>
+</div>
+</details></div>
+</section>
+<section class="section" id="build-out-the-calculator">
+<h3>Build Out the Calculator</h3>
+<p>Finish the calculator so that it handles subtraction, multiplication, division,
+and square root. You may need to search the internet to learn how to complete
+the proper mathematical operations in Javascript.</p>
+<p>For each new operation, add a new if-statement following the same pattern as
+the addition if-statement above.</p>
+<p>In order to practice your git skills, after you get each new math operation
+working, use <cite>git add</cite> and <cite>git commit</cite> to save your work. Go ahead commit
+your code now, since you added code that allows the user to add two
+numbers together.</p>
+<pre class="console literal-block">$ <span class="cmd">git add .</span>
+$ <span class="cmd">git commit -m &quot;Addition implementation working&quot;</span></pre>
+<div class="admonition note">
+<p class="admonition-title">Read the Docs!</p>
+<div class="admonition-body docutils container">
+<p>The Node.js official documentation will be very helpful to you today, and
+moving forward in this course. You can always google and read other
+resources, but if you’re ever looking for a good general reference
+and this site pops up in your search results, it’s a good one to use.</p>
+<p><a class="reference external" href="https://nodejs.org/en/docs/" target="_blank">Node.js Documentation</a></p>
+</div>
+</div>
+<p><strong>Congratulations on completing the Calculator!</strong></p>
+</section>
+</section>
+</section>
+
+        </main>
+
+        <footer id="page-footer">
+            <p>&copy; 2022 Devmountain</p>
+        </footer>
+      </div>
+
+      <script src="_static/main.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+  </body>
+</html>
