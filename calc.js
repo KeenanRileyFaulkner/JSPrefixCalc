@@ -45,33 +45,32 @@ reader.question("What would you like to calculate?", function(input){
 		let itr = 1; //and an iterator to move through tokens
 
 		if(operations[i] === "+") {
-			let sum = 0; // create a temporary sum of 0
-			while((operations[j] + itr < tokens.length) && !isNaN(tokens[operations[j] + itr])) {
-				sum += tokens[operations[j] + itr]; // add all the numbers to the right of the + operator to the sum
-				itr ++;
+			if ((!isNaN(tokens[operations[j] + 1])) && (!isNaN(tokens[operations[j] + 2]))) { // if there are two numbers after the + operator
+				let sum = tokens[operations[j] + 1] + tokens[operations[j] + 2]; // find the sum between them and put it in the list (get rid of the + sign and the two numbers)
+				tokens.splice(operations[j], 3, sum);
+			} else {
+				throw "Cannot add type of NaN!"; // otherwise, throw an error and set completed all Ops to false. Exit the for loop.
+				completedAllOps = false;
+				break;
 			}
-			tokens[operations[j]] = sum; // set the tokens array at the operator position equal to the sum
-			tokens.length = operations[j] + 1; // make the sum the last thing in the tokens array (everything to the right of it gets deleted)
-			itr = 1; // reset itr to handle the next operation
 		} else if (operations[i] === "-") {
 			if ((!isNaN(tokens[operations[j] + 1])) && (!isNaN(tokens[operations[j] + 2]))) { // if there are two numbers after the - operator
 				let difference = tokens[operations[j] + 1] - tokens[operations[j] + 2]; // find the difference between them and put it in the list (get rid of the - sign and the two numbers)
 				tokens.splice(operations[j], 3, difference);
-				// console.log(i - 1, tokens[i - 1]);
 			} else {
 				throw "Cannot subtract type of NaN!"; // otherwise, throw an error and set completed all Ops to false. Exit the for loop.
 				completedAllOps = false;
 				break;
 			}
 		} else if (operations[i] === "*") {
-			let product = 1;
-			while((operations[j] + itr < tokens.length) && !isNaN(tokens[operations[j] + itr])) {
-				product *= tokens[operations[j] + itr]; // multiply all the numbers to the right of the * operator together
-				itr++;
+			if ((!isNaN(tokens[operations[j] + 1])) && (!isNaN(tokens[operations[j] + 2]))) { // if there are two numbers after the * operator
+				let product = tokens[operations[j] + 1] * tokens[operations[j] + 2]; // find the product between them and put it in the list (get rid of the * sign and the two numbers)
+				tokens.splice(operations[j], 3, product);
+			} else {
+				throw "Cannot multiply type of NaN!"; // otherwise, throw an error and set completed all Ops to false. Exit the for loop.
+				completedAllOps = false;
+				break;
 			}
-			tokens[operations[j]] = product; // set the tokens array at the operator position equal to the product
-			tokens.length = operations[j] + 1; // make the product the last thing in the tokens array (everything to the right of it gets deleted)
-			itr = 1; //reset itr for the next operation
 		} else if (operations[i] === "/") {
 			if ((operations[j] + 2 < tokens.length) && (!isNaN(tokens[operations[j] + 1])) && (!isNaN(tokens[operations[j] + 2]))) { // if there are two numbers after the / operator
 				let quotient = tokens[operations[j] + 1] / tokens[operations[j] + 2]; // find the quotient between them and put it in the list (get rid of the / sign and the two numbers)
