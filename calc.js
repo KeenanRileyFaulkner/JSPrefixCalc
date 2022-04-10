@@ -10,8 +10,7 @@ const reader = readline.createInterface({
 reader.question("What would you like to calculate?", function(input){
 	tokens = input.split(' ');
 	
-	//empty array (or "list") for numbers, operations, and results
-	let numbers = [];
+	//empty array (or "list") for operations, temporary list to manipulate tokens data types
 	let operations = [];
 	let temp = [];
 
@@ -28,22 +27,18 @@ reader.question("What would you like to calculate?", function(input){
 		}
 	}
 
-	//put the value and index from tokens into either operations or numbers array
+	//put the value and index from operations in tokens into tokens array
 	//example:
 	// tokens = ["+", 3, 4, "-", 2]
-	// numbers = [3, 1, 4, 2, 2, 4]
-	// operations = ["+", 0, "-", 3]
+	// operations = ["+", 0, "-", 3] (symbol, indexOfSymbol, symbol, indexOfSymbol)
 	for(let i = 0; i < tokens.length; ++i) {
 		if(isNaN(tokens[i])) {
 			operations.push(tokens[i]);
 			operations.push(i);
-		} else {
-			numbers.push(tokens[i]);
-			numbers.push(tokens[i]);
 		}
 	}
 
-	let completedAllOps = true;
+	let completedAllOps = true; // make sure that the whole expression is evaluated (switch this value to false if code breaks while evaluating)
 
 	for(let i = operations.length - 2; i >= 0; i-=2) { //start at the last operation in the operations array and go back through each one. For each operation:
 		let j = i + 1; //create a variable to track the location of the current math symbol in tokens array
