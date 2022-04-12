@@ -41,8 +41,6 @@ reader.question("What would you like to calculate?", function (input) {
     }
   }
 
-  let completedAllOps = true; // make sure that the whole expression is evaluated (switch this value to false if code breaks while evaluating)
-
   for (let i = operations.length - 2; i >= 0; i -= 2) {
     //start at the last operation in the operations array and go back through each one. For each operation:
     let j = i + 1; //create a variable to track the location of the current math symbol in tokens array
@@ -57,9 +55,7 @@ reader.question("What would you like to calculate?", function (input) {
         let sum = tokens[operations[j] + 1] + tokens[operations[j] + 2]; // find the sum between them and put it in the list (get rid of the + sign and the two numbers)
         tokens.splice(operations[j], 3, sum);
       } else {
-        throw "Cannot add type of NaN!"; // otherwise, throw an error and set completed all Ops to false. Exit the for loop.
-        completedAllOps = false;
-        break;
+        throw "Cannot add type of NaN!"; // otherwise, throw an error.
       }
     } else if (operations[i] === "-") {
       if (
@@ -70,9 +66,7 @@ reader.question("What would you like to calculate?", function (input) {
         let difference = tokens[operations[j] + 1] - tokens[operations[j] + 2]; // find the difference between them and put it in the list (get rid of the - sign and the two numbers)
         tokens.splice(operations[j], 3, difference);
       } else {
-        throw "Cannot subtract type of NaN!"; // otherwise, throw an error and set completed all Ops to false. Exit the for loop.
-        completedAllOps = false;
-        break;
+        throw "Cannot subtract type of NaN!"; // otherwise, throw an error.
       }
     } else if (operations[i] === "*") {
       if (
@@ -83,9 +77,7 @@ reader.question("What would you like to calculate?", function (input) {
         let product = tokens[operations[j] + 1] * tokens[operations[j] + 2]; // find the product between them and put it in the list (get rid of the * sign and the two numbers)
         tokens.splice(operations[j], 3, product);
       } else {
-        throw "Cannot multiply type of NaN!"; // otherwise, throw an error and set completed all Ops to false. Exit the for loop.
-        completedAllOps = false;
-        break;
+        throw "Cannot multiply type of NaN!"; // otherwise, throw an error.
       }
     } else if (operations[i] === "/") {
       if (
@@ -97,9 +89,7 @@ reader.question("What would you like to calculate?", function (input) {
         let quotient = tokens[operations[j] + 1] / tokens[operations[j] + 2]; // find the quotient between them and put it in the list (get rid of the / sign and the two numbers)
         tokens.splice(operations[j], 3, quotient);
       } else {
-        throw "Cannot divide type of NaN!"; // otherwise, throw an error and set completed all Ops to false. Exit the for loop.
-        completedAllOps = false;
-        break;
+        throw "Cannot divide type of NaN!"; // otherwise, throw an error.
       }
     } else if (operations[i] === "sqrt" || operations[i] === "Sqrt") {
       if (
@@ -109,19 +99,43 @@ reader.question("What would you like to calculate?", function (input) {
         // if there is one number after the sqrt operator
         let sqrt = Math.sqrt(tokens[operations[j] + 1]); // find the sqrt and put it in the list (get rid of the sqrt sign and the number)
         tokens.splice(operations[j], 2, sqrt);
+        if(isNaN(sqrt)) {
+          throw "Nor-real result! How am I supposed to imagine numbers?!";
+        }
       } else {
-        throw "Cannot sqrt type of NaN!"; // otherwise, throw an error and set completed all Ops to false. Exit the for loop.
-        completedAllOps = false;
-        break;
+        throw "Cannot sqrt type of NaN!"; // otherwise, throw an error.
+      }
+    } else if (operations[i] === "sin" || operations[i] === "Sin") {
+      if (
+        operations[j] + 1 < tokens.length &&
+        !isNaN(tokens[operations[j] + 1])
+      ) {
+        let sin = Math.sin(tokens[operations[j] + 1]);
+        tokens.splice(operations[j], 2, sin);
+      } else {
+        throw "Cannot calculate sine of type NaN!";
+      }
+    } else if (operations[i] === "arcsin" || operations[i] === "Arcsin") {
+      if (
+        operations[j] + 1 < tokens.length &&
+        !isNaN(tokens[operations[j] + 1])
+      ) {
+        let arcsin = Math.asin(tokens[operations[j] + 1]);
+        tokens.splice(operations[j], 2, arcsin);
+        if(isNaN(arcsin)) {
+          throw "Nor-real result! How am I supposed to imagine numbers?!";
+        }
+      } else {
+        throw "Cannot calculate arcsine of type NaN!";
       }
     }
   }
 
-  if (tokens.length == 1 && completedAllOps) {
+  if (tokens.length == 1) {
     console.log(tokens[0]); // the last thing left in the tokens array should be the result of the whole expression
   } else {
     console.log(
-      "There seems to have been an issue with your expression. Please try again."
+      "There seems to have been an issue with your expression (check typos and missing operators). Please try again."
     );
   }
 
