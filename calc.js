@@ -18,6 +18,11 @@ reader.question("What would you like to calculate?", function(input){
 		//temp is an array of NaNs and numbers from original tokens array. Both arrays are the same length
 		//ex: tokens = "1", "4", "+", "3", "4", "-"
 		//    temp   = 1, 4, NaN, 3, 4, NaN
+		if(tokens[i] === "pi" || tokens[i] === "Pi") {
+			tokens[i] = Math.PI;
+		} else if (tokens[i] === "e") {
+			tokens[i] = Math.E;
+		}
 		temp[i] = Number(tokens[i]);
 	}
 
